@@ -26,6 +26,9 @@ lazy val core = project
   .in(file("core"))
   .settings(
     name := "spaner-test",
+    // These two may slow down compilation
+    // scalafmtCheck := true,
+    // scalafmtOnCompile := true,
 
     libraryDependencies ++= Seq(
       "org.typelevel"               %% "cats-core"                  % catsV,
@@ -55,3 +58,5 @@ lazy val core = project
 
     )
   )
+
+addCommandAlias("fmt", "core/scalafmtAll; core/scalafmtSbt")
