@@ -7,6 +7,6 @@ object ConfigurationCloud {
   val databaseId = "test-db"
 
   def spannerJdbcUrl =
-    s"jdbc:cloudspanner://localhost:9010/projects/$projectId/instances/$instanceId/databases/$databaseId;usePlainText=true"
+    s"jdbc:cloudspanner:/projects/$projectId/instances/$instanceId/databases/$databaseId"
 
 }
