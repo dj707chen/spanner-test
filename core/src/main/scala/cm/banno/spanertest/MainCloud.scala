@@ -9,11 +9,11 @@ import java.sql.DriverManager
 import scala.concurrent.ExecutionContext
 import java.nio.charset.StandardCharsets
 
-object Main extends IOApp {
+object MainCloud extends IOApp {
 
   def printActions(implicit console: Console[IO]): IO[Unit] =
     console.print(s"""
-      |Please choose test action:
+      |[Cloud] Please choose test action:
       |  1. Schema creation
       |  2. Insert
       |  _. Select
@@ -21,6 +21,8 @@ object Main extends IOApp {
 
   def run(args: List[String]): IO[ExitCode] = {
     import doobie.util.yolo._
+
+    val spannerJdbcUrl = ConfigurationEmulator.spannerJdbcUrl
 
     implicit val console = Console[IO]
 
@@ -31,11 +33,11 @@ object Main extends IOApp {
       result <- action match {
                   case "1" =>
                     console.println("Test schema creation") *>
-                    JDBCStuff.createJDBC
+                    JDBCStuff.createJDBC(spannerJdbcUrl)
 
                   case "2" =>
                     console.println("Test insert") *>
-                    DoobieStuff.transactor.use { xa =>
+                    DoobieStuff.transactor(spannerJdbcUrl).use { xa =>
                       val yolo = new Yolo(xa); import yolo._
                       DoobieStuff.insert
                         .run(DoobieStuff.Singer(10, "Marc", "Richards", 104100))
@@ -44,7 +46,7 @@ object Main extends IOApp {
 
                   case _ =>
                     console.println("Test select") *>
-                    DoobieStuff.transactor.use { xa =>
+                    DoobieStuff.transactor(spannerJdbcUrl).use { xa =>
                       val yolo = new Yolo(xa); import yolo._
                       DoobieStuff.select
                         .to[List]
