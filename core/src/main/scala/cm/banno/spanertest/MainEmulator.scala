@@ -22,20 +22,22 @@ object MainEmulator extends IOApp {
   def run(args: List[String]): IO[ExitCode] = {
     import doobie.util.yolo._
 
+    val spannerJdbcUrl = ConfigurationEmulator.spannerJdbcUrl
+
     implicit val console = Console[IO]
 
-    val resultIO = for {
+    val resultIO: IO[Any] = for {
       _      <- printActions
       action <- console.readLineWithCharset(StandardCharsets.UTF_8)
       _      <- console.println("")
       result <- action match {
                   case "1" =>
                     console.println("Test schema creation") *>
-                    JDBCStuff.createJDBC(ConfigurationEmulator.spannerJdbcUrl)
+                    JDBCStuff.createJDBC(spannerJdbcUrl)
 
                   case "2" =>
                     console.println("Test insert") *>
-                    DoobieStuff.transactor(ConfigurationEmulator.spannerJdbcUrl).use { xa =>
+                    DoobieStuff.transactor(spannerJdbcUrl).use { xa =>
                       val yolo = new Yolo(xa); import yolo._
                       DoobieStuff.insert
                         .run(DoobieStuff.Singer(10, "Marc", "Richards", 104100))
@@ -44,7 +46,7 @@ object MainEmulator extends IOApp {
 
                   case _ =>
                     console.println("Test select") *>
-                    DoobieStuff.transactor(ConfigurationEmulator.spannerJdbcUrl).use { xa =>
+                    DoobieStuff.transactor(spannerJdbcUrl).use { xa =>
                       val yolo = new Yolo(xa); import yolo._
                       DoobieStuff.select
                         .to[List]

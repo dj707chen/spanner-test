@@ -16,7 +16,7 @@ gcloud auth login
 #   --description="Test Instance" \
 #   --nodes=1
 
-echo "\nCreating Spanner databases test-db ..."
-gcloud spanner databases create test-db \
-  --instance=test-instance
-#  --project=spannerlab \
+# echo "\nCreating Spanner databases test-db ..."
+# gcloud spanner databases create test-db \
+#   --instance=test-instance
+# #  --project=spannerlab \
