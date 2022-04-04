@@ -5,7 +5,7 @@ clear
 gcloud config configurations activate default
 gcloud config configurations delete spanner-cloud
 gcloud config configurations create spanner-cloud
-gcloud config set account dj707chen@gmail.com
+gcloud config set account <your account email>
 gcloud config set project spannerlab
 gcloud auth login
 

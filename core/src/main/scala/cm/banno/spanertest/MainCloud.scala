@@ -9,7 +9,8 @@ import java.sql.DriverManager
 import scala.concurrent.ExecutionContext
 import java.nio.charset.StandardCharsets
 
-/* Accessing Spanner in cloud is working, please use MainEmulator to test. Below is the error.
+/* Accessing Spanner in cloud from local is not working, might need to use service accounts.
+Please use MainEmulator to test. Below is the error.
 ----------------------------------------------------------------------------------------------
 ➜  ~/repoMy/spanner-test git:(main) ✗ sbt core/run
 [info] welcome to sbt 1.6.1 (Eclipse Adoptium Java 17.0.1)
