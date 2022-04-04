@@ -117,11 +117,7 @@ object MainCloud extends IOApp
       |  \u001b[31m Accessing Spanner in cloud from local is not working, refer the comment in MainCloud.scala,
       |Please use MainEmulator.
       |\u001b[37m
-      |[Cloud] Please choose test action:
-      |  1. Schema creation
-      |  2. Insert
-      |  _. Select
-      |=> """.stripMargin)
+      |""".stripMargin)
 
   def run(args: List[String]): IO[ExitCode] = {
     import doobie.util.yolo._

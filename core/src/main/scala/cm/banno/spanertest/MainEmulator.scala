@@ -2,11 +2,8 @@ package io.chrisdavenport.spannertest
 
 import cats.effect._
 import cats.effect.std._
-import doobie._
 import doobie.implicits._
 
-import java.sql.DriverManager
-import scala.concurrent.ExecutionContext
 import java.nio.charset.StandardCharsets
 
 object MainEmulator extends IOApp {
