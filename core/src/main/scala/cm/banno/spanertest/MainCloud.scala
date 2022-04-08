@@ -113,10 +113,12 @@ object MainCloud extends IOApp
 
   def printActions(implicit console: Console[IO]): IO[Unit] =
     // Change console text color, https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors
+	// Improved based on https://stackoverflow.com/questions/9772626/using-colors-in-scala-console
     console.print(s"""
-      |  \u001b[31m Accessing Spanner in cloud from local is not working, refer the comment in MainCloud.scala,
+      |${scala.Console.RED} 
+	  |Accessing Spanner in cloud from local is not working, refer the comment in MainCloud.scala,
       |Please use MainEmulator.
-      |\u001b[37m
+      |${scala.Console.RESET}
       |""".stripMargin)
 
   def run(args: List[String]): IO[ExitCode] = {
